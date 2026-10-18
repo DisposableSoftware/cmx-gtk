@@ -13,7 +13,7 @@ This folder is the source of truth for what cmx does. The code implements the sp
 | [appearance.md](appearance.md) | `LOOK` | Styling and display scale |
 | [configuration.md](configuration.md) | `CONF` | `config.ini` and `keybindings.ini` |
 | [integration.md](integration.md) | `INT` | XDG/freedesktop, desktop entry, Nix, command line, man page |
-| [roadmap.md](roadmap.md) | — | The order of planned work |
+| [roadmap.md](roadmap.md) | — | The order of planned work, which `/implement` follows |
 
 Add a file with a new prefix when a feature area doesn't fit these, and list it here.
 
