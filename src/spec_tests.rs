@@ -48,11 +48,10 @@ fn default_value(cfg: &Config, section: &str, key: &str) -> Option<String> {
     Some(match (section, key) {
         ("window", "width") => cfg.width.to_string(),
         ("window", "height") => cfg.height.to_string(),
-        ("view", "greeting") => cfg.greeting.clone(),
         _ => return None,
     })
 }
-const CONFIG_KEY_COUNT: usize = 3;
+const CONFIG_KEY_COUNT: usize = 2;
 
 fn config_rows() -> Vec<(String, String, String)> {
     table(CONFIGURATION_MD, "config")

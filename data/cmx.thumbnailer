@@ -1,0 +1,4 @@
+[Thumbnailer Entry]
+TryExec=cmx
+Exec=cmx --thumbnail %s %i %o
+MimeType=application/vnd.comicbook+zip;application/x-cbz;

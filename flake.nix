@@ -1,5 +1,5 @@
 {
-  description = "cmx — a starting point for GTK 4 apps";
+  description = "cmx — a minimal comic reader for .cbz files";
 
   inputs.nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 

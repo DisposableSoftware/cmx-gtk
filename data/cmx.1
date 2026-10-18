@@ -1,18 +1,43 @@
-.TH CMX 1 2026-10-17 "cmx 0.1.0" "User Commands"
+.TH CMX 1 2026-10-18 "cmx 0.1.0" "User Commands"
 .\" Left-aligned and unhyphenated, so key names and paths copy as written.
 .nr HY 0
 .ds AD l
 .SH NAME
-cmx \- cmx, a starting point for GTK 4 apps
+cmx \- a minimal comic reader for .cbz files
 .SH SYNOPSIS
 .B cmx
 .RI [ OPTION ...]
+.RI [ FILE ...]
+.br
+.B cmx \-\-thumbnail
+.I SIZE INPUT OUTPUT
 .SH DESCRIPTION
 .B cmx
-opens a window that shows a greeting.
-It runs as a single instance: when it is already running, the new window opens in
-that process.
+(pronounced \(lqsee-mix\(rq) shows a comic one page at a time, or two side by side,
+fit to the window, with nothing drawn over the image.
+It opens each
+.I FILE
+in its own window.
+Started with no
+.IR FILE ,
+it reopens the comic read last.
+Every comic remembers its page, so opening it again resumes where you stopped.
 .PP
+A comic is a ZIP archive of images.
+Pages are the archive's image files in natural order, so
+.I page2.jpg
+comes before
+.IR page10.jpg .
+When the archive has a
+.IR ComicInfo.xml ,
+its series, number and title make up the window title, and every field is shown
+in the info panel.
+RAR archives (.cbr), even when renamed to .cbz, are detected and not read.
+.PP
+cmx runs as a single instance: when it is already running, new windows open in
+that process.
+Opening a comic that is already open brings its window forward.
+Comics can also be dropped onto a window.
 Every window has the Wayland app_id
 .BR io.github.DisposableSoftware.cmx ,
 so compositor window rules can match it.
@@ -23,8 +48,21 @@ Print a short help and exit.
 .TP
 .BR \-V ", " \-\-version
 Print the version and exit.
+.TP
+.BI \-\-thumbnail " SIZE INPUT OUTPUT"
+Write the first page of the comic
+.I INPUT
+to
+.I OUTPUT
+as a PNG of at most
+.IR SIZE \(mu SIZE
+pixels, and exit.
+It exits with status 1, writing nothing, when
+.I INPUT
+can't be read.
+This is what file managers run to show comic covers.
 .PP
-Neither option opens a window or contacts a running cmx.
+None of these options opens a window or contacts a running cmx.
 .SH KEY BINDINGS
 Each binding has a name, used in the
 .B [keybindings]
@@ -38,9 +76,15 @@ for example
 .BR "quit = <Ctrl>q;<Alt>F4" .
 An empty value unbinds it.
 .TP
+.B open
+Open comics.
+Shows a file dialog; several comics can be chosen.
+.br
+Keys: \fB<Ctrl>o\fR
+.TP
 .B new\-window
 New window.
-Opens another window.
+Opens an empty window.
 .br
 Keys: \fB<Ctrl>n\fR
 .TP
@@ -53,7 +97,57 @@ Keys: \fB<Ctrl>w\fR
 Quit.
 Closes every window.
 .br
-Keys: \fB<Ctrl>q\fR
+Keys: \fBq\fR, \fB<Ctrl>q\fR
+.TP
+.B next\-page
+Next page.
+Moves past every page on screen.
+.br
+Keys: \fBspace\fR, \fBRight\fR, \fBDown\fR, \fBPage_Down\fR, \fBl\fR, \fBj\fR
+.TP
+.B previous\-page
+Previous page.
+Moves back two pages in dual-page layout.
+.br
+Keys: \fB<Shift>space\fR, \fBLeft\fR, \fBUp\fR, \fBPage_Up\fR, \fBh\fR, \fBk\fR
+.TP
+.B first\-page
+First page.
+.br
+Keys: \fBHome\fR
+.TP
+.B last\-page
+Last page.
+.br
+Keys: \fBEnd\fR
+.TP
+.B toggle\-dual\-page
+Toggle dual-page layout.
+Shows the next page beside the current one.
+A landscape page is always shown alone.
+.br
+Keys: \fBd\fR
+.TP
+.B toggle\-info
+Toggle the info panel.
+Shows the comic's metadata beside the page.
+.br
+Keys: \fB<Ctrl>i\fR
+.TP
+.B toggle\-fullscreen
+Toggle fullscreen.
+.br
+Keys: \fBf\fR, \fBF11\fR
+.TP
+.B exit\-fullscreen
+Leave fullscreen.
+.br
+Keys: \fBEscape\fR
+.TP
+.B about
+About cmx.
+.br
+Keys: \fBF1\fR
 .SH CONFIGURATION
 Settings are read from
 .I $XDG_CONFIG_HOME/cmx/config.ini
@@ -78,20 +172,15 @@ and
 .SS [window]
 .TP
 .B width
-The default window width in logical pixels, 300 to 8192.
+The starting width of new windows in logical pixels, 300 to 8192.
+When a comic opens, the window fits itself to the page.
 .br
 Default: \fB800\fR
 .TP
 .B height
-The default window height in logical pixels, 200 to 8192.
+The starting height of new windows in logical pixels, 200 to 8192.
 .br
-Default: \fB600\fR
-.SS [view]
-.TP
-.B greeting
-The text shown in the window.
-.br
-Default: \fBHello\fR
+Default: \fB1000\fR
 .SH FILES
 .TP
 .I $XDG_CONFIG_HOME/cmx/config.ini
@@ -99,8 +188,20 @@ Settings.
 .TP
 .I $XDG_CONFIG_HOME/cmx/keybindings.ini
 Key bindings.
+.TP
+.I $XDG_STATE_HOME/cmx/state.ini
+The page each comic was left at, and the comic read last.
+Written by cmx; not meant for editing.
+.TP
+.I $XDG_DATA_HOME/recently\-used.xbel
+Comics that opened are added to the recently used files, so file choosers
+list them.
 .SH ENVIRONMENT
 .TP
 .B XDG_CONFIG_HOME
 Where the settings are read; default
 .IR ~/.config .
+.TP
+.B XDG_STATE_HOME
+Where reading progress is kept; default
+.IR ~/.local/state .

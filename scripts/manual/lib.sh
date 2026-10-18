@@ -99,3 +99,13 @@ FAILS=0
 check() { # check DESCRIPTION EXPECTED ACTUAL
   if [ "$2" = "$3" ]; then echo "PASS  $1"; else echo "FAIL  $1 (expected '$2', got '$3')"; FAILS=$((FAILS+1)); fi
 }
+
+FIX=$PWD/tests/fixtures
+title() { active .title; }
+size() { active '"\(.size[0]) \(.size[1])"'; }
+# wait_for DESCRIPTION COMMAND EXPECTED: polls COMMAND for up to 5 s, then checks it.
+wait_for() {
+  local got
+  for _ in $(seq 25); do got=$(eval "$2"); [ "$got" = "$3" ] && break; sleep 0.2; done
+  check "$1" "$3" "$got"
+}

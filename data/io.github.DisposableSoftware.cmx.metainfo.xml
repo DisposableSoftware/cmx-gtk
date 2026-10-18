@@ -5,7 +5,7 @@
   <metadata_license>CC0-1.0</metadata_license>
   <project_license>MIT</project_license>
   <name>cmx</name>
-  <summary>A starting point for GTK 4 apps</summary>
+  <summary>Read .cbz comics</summary>
   <developer id="io.github.disposablesoftware">
     <name>DisposableSoftware</name>
   </developer>
@@ -14,13 +14,19 @@
       Certified, artisanal, vibe-coded slop: an AI wrote all of it while a person said
       "yeah, looks good" and pressed Enter a lot.
     </p>
-    <p>cmx opens a window that says hello.</p>
+    <p>
+      cmx (pronounced "see-mix") is a minimal comic reader for .cbz files. It shows one
+      page at a time, or two side by side, fit to the window, with nothing drawn over the
+      image. It has no library: it opens whatever file it is given and remembers where you
+      stopped reading.
+    </p>
   </description>
   <launchable type="desktop-id">io.github.DisposableSoftware.cmx.desktop</launchable>
   <url type="homepage">https://github.com/DisposableSoftware/cmx-gtk</url>
   <url type="bugtracker">https://github.com/DisposableSoftware/cmx-gtk/issues</url>
   <content_rating type="oars-1.1"/>
   <provides>
+    <mediatype>application/vnd.comicbook+zip</mediatype>
     <binary>cmx</binary>
   </provides>
   <releases>

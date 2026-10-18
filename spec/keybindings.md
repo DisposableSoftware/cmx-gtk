@@ -8,7 +8,7 @@
 | `KEY-2` | Users override a binding in the `[keybindings]` group of `$XDG_CONFIG_HOME/cmx/keybindings.ini`, writing `name = accel;accel`. An empty value unbinds it. A binding that isn't listed keeps its defaults. | done | `config::tests::reads_settings_and_keybindings_from_their_files`, `keys::tests::accelerators` |
 | `KEY-3` | Unknown binding names and accelerators that can't be parsed are warned about on stderr and skipped. They never crash the app. | done | `keys::tests::accelerators` (a bad accelerator is dropped) |
 | `KEY-4` | Accelerator syntax is GTK's (`gtk_accelerator_parse`): `<Ctrl>`, `<Shift>`, `<Alt>`, `<Super>` plus a GDK key name. | done | `keys::tests::accelerators` |
-| `KEY-5` | The paging keys work wherever focus is in the window, the info panel's selectable text included. Each press fires the action once, and holding a key down repeats it. | planned | `scripts/manual/paging.sh` |
+| `KEY-5` | The paging keys work wherever focus is in the window, the info panel's selectable text included. Each press fires the action once, and holding a key down repeats it. | done | `scripts/manual/info.sh` (paging with focus in a selectable value), `scripts/manual/paging.sh` (quick presses, a held key) |
 
 ## Default bindings
 

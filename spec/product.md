@@ -13,8 +13,8 @@ It shows one page at a time, or two side by side, fit to the window, with nothin
 | `PROD-3` | Simple toolchain: `cargo` inside a Nix devshell, nothing else. | done |
 | `PROD-4` | Easy NixOS integration. | done (see `INT-20`…`INT-24`) |
 | `PROD-5` | Every action has a keybinding users can change (see [keybindings.md](keybindings.md)). | done (ongoing constraint) |
-| `PROD-6` | Minimal UI is a hard constraint. The page fills the window, and everything else (the info panel, errors) stays hidden until asked for. There is no menu bar, toolbar or on-screen control. | planned (ongoing constraint) |
-| `PROD-7` | Archive contents are untrusted input. A broken, hostile or mislabeled file shows an error. It never crashes or hangs the app. | planned (ongoing constraint) |
+| `PROD-6` | Minimal UI is a hard constraint. The page fills the window, and everything else (the info panel, errors) stays hidden until asked for. There is no menu bar, toolbar or on-screen control. | done (ongoing constraint) |
+| `PROD-7` | Archive contents are untrusted input. A broken, hostile or mislabeled file shows an error. It never crashes or hangs the app. | done (ongoing constraint) |
 
 ## Non-goals
 

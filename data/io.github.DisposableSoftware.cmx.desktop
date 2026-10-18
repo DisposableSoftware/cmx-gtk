@@ -1,13 +1,15 @@
 [Desktop Entry]
 Type=Application
 Name=cmx
-Comment=A starting point for GTK 4 apps
-Exec=cmx
+Comment=Read .cbz comics
+Exec=cmx %F
 Icon=io.github.DisposableSoftware.cmx
 StartupWMClass=io.github.DisposableSoftware.cmx
 Terminal=false
 StartupNotify=true
-Categories=GTK;Utility;
+MimeType=application/vnd.comicbook+zip;application/x-cbz;
+Categories=Graphics;Viewer;
+Keywords=comic;cbz;reader;
 Actions=new-window;
 
 [Desktop Action new-window]

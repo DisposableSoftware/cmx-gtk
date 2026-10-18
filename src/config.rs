@@ -16,7 +16,6 @@ pub struct Config {
     /// Default window size in logical px.
     pub width: i32,
     pub height: i32,
-    pub greeting: String,
     /// Overrides from `keybindings.ini`; see `keys::BINDINGS` for names and defaults.
     pub keybindings: HashMap<String, Vec<String>>,
 }
@@ -25,8 +24,7 @@ impl Default for Config {
     fn default() -> Self {
         Self {
             width: 800,
-            height: 600,
-            greeting: "Hello".into(),
+            height: 1000,
             keybindings: HashMap::new(),
         }
     }
@@ -58,9 +56,6 @@ impl Config {
         }
         if let Ok(v) = kf.integer("window", "height") {
             cfg.height = v.clamp(200, 8192);
-        }
-        if let Ok(v) = kf.string("view", "greeting") {
-            cfg.greeting = v.to_string();
         }
         cfg
     }
@@ -156,11 +151,7 @@ mod tests {
     fn reads_settings_and_keybindings_from_their_files() {
         let dir = temp("read");
         std::fs::create_dir_all(&dir).unwrap();
-        std::fs::write(
-            dir.join("config.ini"),
-            "[window]\nwidth=100\nheight=700\n[view]\ngreeting=Hi there\n",
-        )
-        .unwrap();
+        std::fs::write(dir.join("config.ini"), "[window]\nwidth=100\nheight=700\n").unwrap();
         std::fs::write(
             dir.join("keybindings.ini"),
             "[keybindings]\nquit=<Ctrl>q;<Ctrl><Shift>q\nnew-window=\n",
@@ -169,7 +160,6 @@ mod tests {
         let cfg = Config::load_from(&dir);
         assert_eq!(cfg.width, 300, "clamped");
         assert_eq!(cfg.height, 700);
-        assert_eq!(cfg.greeting, "Hi there");
         assert_eq!(cfg.keybindings["quit"], ["<Ctrl>q", "<Ctrl><Shift>q"]);
         assert!(cfg.keybindings["new-window"].is_empty());
         std::fs::remove_dir_all(&dir).unwrap();
@@ -185,7 +175,7 @@ mod tests {
         let config = std::fs::read_to_string(dir.join("config.ini")).unwrap();
         let keys = std::fs::read_to_string(dir.join("keybindings.ini")).unwrap();
         assert!(config.contains("\n# width = 800\n"));
-        assert!(keys.contains("\n# quit = <Ctrl>q\n"));
+        assert!(keys.contains("\n# quit = q;<Ctrl>q\n"));
         for line in config.lines().chain(keys.lines()) {
             assert!(
                 line.is_empty() || line.starts_with('#') || line.starts_with('['),

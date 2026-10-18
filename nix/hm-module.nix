@@ -22,7 +22,6 @@ in
       default = { };
       example = {
         window.width = 1000;
-        view.greeting = "Hi";
       };
       description = "Written to $XDG_CONFIG_HOME/cmx/config.ini.";
     };
@@ -34,7 +33,7 @@ in
           "<Ctrl>q"
           "<Alt>F4"
         ];
-        new-window = [ ];
+        toggle-dual-page = [ ];
       };
       description = "Binding name to keys, written to $XDG_CONFIG_HOME/cmx/keybindings.ini. An empty list unbinds it; see cmx(1) for the names.";
     };

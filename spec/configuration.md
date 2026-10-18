@@ -7,7 +7,7 @@
 | `CONF-1` | Settings are read from `$XDG_CONFIG_HOME/cmx/config.ini` (GLib key-file / INI syntax) when the app starts. A missing file is not an error. A file that can't be read or parsed is warned about, and the defaults are used. Every key is optional. Changes apply on restart. | done | `config::tests` |
 | `CONF-2` | `data/config.example.ini` lists every setting with its default, and `data/keybindings.example.ini` every binding with its default keys. Both are installed to `share/doc/cmx/`. | done | `spec_tests::example_config_matches_spec` |
 | `CONF-3` | When the app starts and `config.ini` or `keybindings.ini` doesn't exist, it creates the missing file (and the folder) from the example (`CONF-2`), with every line commented out, so the file changes nothing until a line is uncommented. A file that exists is never written to, whether it is a regular file, a symlink (as with dotfiles or home-manager) or a dangling symlink. If a file can't be created, that is warned about and the app starts normally. | done | `config::tests` |
-| `CONF-4` | `[window] width` and `height`: the starting size of new windows in logical px, clamped to 300–8192 and 200–8192. When a comic opens, the window then fits itself to the page (`WIN-11`). | planned | `config::tests`, `spec_tests` |
+| `CONF-4` | `[window] width` and `height`: the starting size of new windows in logical px, clamped to 300–8192 and 200–8192. When a comic opens, the window then fits itself to the page (`WIN-11`). | done | `config::tests`, `spec_tests` |
 | `CONF-5` | `[view] greeting`: the text the window shows. | dropped | it was the template's greeting; cmx shows the placeholder (`WIN-5`) instead |
 
 ## Defaults

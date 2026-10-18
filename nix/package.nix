@@ -5,6 +5,9 @@
   wrapGAppsHook4,
   installShellFiles,
   gtk4,
+  gnome,
+  webp-pixbuf-loader,
+  libavif,
 }:
 let
   manifest = (lib.importTOML ../Cargo.toml).package;
@@ -21,6 +24,7 @@ rustPlatform.buildRustPackage {
       ../src
       ../data
       ../spec
+      ../tests
     ];
   };
   cargoLock.lockFile = ../Cargo.lock;
@@ -36,12 +40,24 @@ rustPlatform.buildRustPackage {
     install -Dm644 data/io.github.DisposableSoftware.cmx.desktop -t $out/share/applications
     install -Dm644 data/io.github.DisposableSoftware.cmx.svg -t $out/share/icons/hicolor/scalable/apps
     install -Dm644 data/io.github.DisposableSoftware.cmx.metainfo.xml -t $out/share/metainfo
+    install -Dm644 data/cmx.thumbnailer -t $out/share/thumbnailers
     install -Dm644 data/config.example.ini data/keybindings.example.ini -t $out/share/doc/cmx
     installManPage data/cmx.1
+
+    # INT-21: WebP and AVIF pages decode through gdk-pixbuf loaders. Set here so
+    # gappsWrapperArgsHook puts it in the wrapper.
+    export GDK_PIXBUF_MODULE_FILE="${
+      gnome._gdkPixbufCacheBuilder_DO_NOT_USE {
+        extraLoaders = [
+          webp-pixbuf-loader
+          libavif
+        ];
+      }
+    }"
   '';
 
   meta = {
-    description = "A starting point for GTK 4 apps";
+    description = "A minimal comic reader for .cbz files";
     license = lib.licenses.mit;
     platforms = lib.platforms.linux;
     mainProgram = "cmx";

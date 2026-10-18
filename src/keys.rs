@@ -12,9 +12,49 @@ pub type Binding = (
 /// Config name, GAction, description, default accelerators. The config name is the key
 /// in the `[keybindings]` group of keybindings.ini.
 pub const BINDINGS: &[Binding] = &[
+    ("open", "win.open", "Open comics", &["<Ctrl>o"]),
     ("new-window", "win.new-window", "New window", &["<Ctrl>n"]),
     ("close-window", "window.close", "Close window", &["<Ctrl>w"]),
-    ("quit", "app.quit", "Quit", &["<Ctrl>q"]),
+    ("quit", "app.quit", "Quit", &["q", "<Ctrl>q"]),
+    (
+        "next-page",
+        "win.next-page",
+        "Next page",
+        &["space", "Right", "Down", "Page_Down", "l", "j"],
+    ),
+    (
+        "previous-page",
+        "win.previous-page",
+        "Previous page",
+        &["<Shift>space", "Left", "Up", "Page_Up", "h", "k"],
+    ),
+    ("first-page", "win.first-page", "First page", &["Home"]),
+    ("last-page", "win.last-page", "Last page", &["End"]),
+    (
+        "toggle-dual-page",
+        "win.toggle-dual-page",
+        "Toggle dual-page layout",
+        &["d"],
+    ),
+    (
+        "toggle-info",
+        "win.toggle-info",
+        "Toggle the info panel",
+        &["<Ctrl>i"],
+    ),
+    (
+        "toggle-fullscreen",
+        "win.toggle-fullscreen",
+        "Toggle fullscreen",
+        &["f", "F11"],
+    ),
+    (
+        "exit-fullscreen",
+        "win.exit-fullscreen",
+        "Leave fullscreen",
+        &["Escape"],
+    ),
+    ("about", "app.about", "About cmx", &["F1"]),
 ];
 
 fn resolve(overrides: &HashMap<String, Vec<String>>) -> Vec<(&'static Binding, Vec<String>)> {
@@ -88,6 +128,7 @@ mod tests {
                 .unwrap()
         };
         assert_eq!(keys("quit"), ["<Alt>F4"]);
+        assert_eq!(keys("next-page")[0], "space");
         assert!(keys("new-window").is_empty());
         assert_eq!(keys("close-window"), ["<Ctrl>w"]);
     }

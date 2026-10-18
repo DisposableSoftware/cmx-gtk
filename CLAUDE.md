@@ -1,6 +1,6 @@
 # cmx
 
-A starting point for GTK 4 apps on Wayland. Display name **cmx**, binary `cmx`, app ID `io.github.DisposableSoftware.cmx`.
+A minimal comic reader for `.cbz` files, a GTK 4 port of the macOS app in `../cmx`. Display name **cmx**, binary `cmx`, app ID `io.github.DisposableSoftware.cmx`.
 
 **What the app does is defined in [`spec/`](spec/README.md).** This file covers how to work on it.
 
@@ -43,20 +43,34 @@ The flake only sees git-tracked files. Run `git add` on new files before `nix bu
 Keep this table current: one line per module, with the spec IDs it implements.
 
 ```
-src/main.rs        GtkApplication, app actions, prgname                      WIN-2, WIN-3
-src/cli.rs         --help and --version, before GTK starts                   INT-30, INT-31
+src/main.rs        GtkApplication, open/activate, app actions, About, CSS     WIN-1, WIN-2, WIN-3, WIN-15
+src/cli.rs         --help, --version, --thumbnail args, before GTK starts    INT-30, INT-31, INT-51
 src/config.rs      config.ini + keybindings.ini, first-run files, OnceLock   CONF KEY-2
 src/keys.rs        keys::BINDINGS, overrides, accelerators                   KEY
-src/window.rs      the main window and its win.* actions                     WIN
-src/spec_tests.rs  spec ↔ code conformance tests
-scripts/manual/    UI checks (lib.sh helpers; headless.sh runs one in a headless sway)
+src/archive.rs     magic-byte sniffing, the ZIP reader, user-facing errors   READ-1, READ-3..5, PROD-7
+src/pages.rs       page list: junk filter, natural sort                      READ-2
+src/metadata.rs    ComicInfo.xml: locate, lenient parse, display title      READ-10..14
+src/decode.rs      bytes -> texture/pixbuf, loader picked by extension      READ-5, INT-21
+src/session.rs     off-thread decode, radius-2 cache, prefetch, cancel      READ-21, READ-32
+src/reader.rs      open a book, navigation rules, spreads, titles            READ-20, READ-30, WIN-7
+src/progress.rs    state.ini: page per comic, last comic, atomic writes      READ-40, READ-41
+src/window.rs      reader window, win.* actions, opening files, fit, errors  WIN, READ-42
+src/page_view.rs   widget that draws one or two pages                        WIN-6
+src/layout.rs      where pages go in the view (pure)                         WIN-6
+src/fit.rs         window-fit geometry (pure)                                WIN-11
+src/info.rs        the metadata panel                                         WIN-13
+src/thumbnail.rs   cmx --thumbnail                                           INT-51
+src/spec_tests.rs  spec <-> code conformance tests
+tests/fixtures/    comics for unit and manual tests (six.cbz: page 3 wide)
+scripts/manual/    UI checks: smoke, open, paging, info, scales (lib.sh helpers;
+                   headless.sh runs one in a headless sway)
 scripts/release-check.sh  recommended version bump since the last v* tag (spec delta)
 scripts/release.sh  bump, commit "cmx X.Y.Z", tag, draft notes (no push)
 .githooks/pre-push  on a push of main, offers to release
-data/              desktop entry, metainfo, icon, config.example.ini +
-                   keybindings.example.ini (first-run files)                 CONF-2
+data/              desktop entry, metainfo, icon, cmx.thumbnailer,
+                   config.example.ini + keybindings.example.ini (first-run)  CONF-2, INT-50
                    cmx.1 (man page, checked by spec_tests)                  INT-32
-nix/               package.nix, nixos-module.nix, hm-module.nix              INT-2x
+nix/               package.nix (+ WebP/AVIF pixbuf loaders), modules        INT-2x
 spec/              the specification
 ```
 
@@ -102,3 +116,7 @@ Run `./scripts/manual/<name>.sh` directly.
 - New windows don't take focus. Run `hyprctl dispatch 'hl.dsp.focus({ window = "class:io.github.DisposableSoftware.cmx" })'` (Hyprland 0.56 uses a Lua config), then send keys with `wtype`. Always check `hyprctl activewindow` first, so keys never land in the user's other apps.
 - The Nix wrapper renames the process to `.cmx-wrapped`, so `pgrep -x cmx` never matches, and `pgrep -f` matches the test's own shell. Find and kill test windows through `hyprctl clients -j` (`.pid`).
 - The app is single-instance. If the user already has it open, a test launch only opens a window in *their* process, and killing that pid closes their windows. Check there are no `io.github.DisposableSoftware.cmx` clients before testing, and don't go ahead if there are.
+
+### Test comics
+
+Use `tests/fixtures/` first. For a real-world check, copy one comic from `~/Sync/Comics Library/` into a temp dir and open the copy. Never open the library's files directly: cmx writes reading progress and recent-file entries for whatever it opens.
