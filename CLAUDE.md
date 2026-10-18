@@ -61,13 +61,17 @@ src/fit.rs         window-fit geometry (pure)                                WIN
 src/info.rs        the metadata panel                                         WIN-13
 src/thumbnail.rs   cmx --thumbnail                                           INT-51
 src/spec_tests.rs  spec <-> code conformance tests
-tests/fixtures/    comics for unit and manual tests (six.cbz: page 3 wide)
-scripts/manual/    UI checks: smoke, open, paging, info, scales (lib.sh helpers;
+tests/fixtures/    comics for unit and manual tests (six.cbz: page 3 wide;
+                   demo.cbz: drawn by scripts/make-demo.sh for screenshots)
+scripts/manual/    UI checks: smoke, open, paging, info, scales, screenshot (lib.sh helpers;
                    headless.sh runs one in a headless sway)
 scripts/release-check.sh  recommended version bump since the last v* tag (spec delta)
 scripts/release.sh  bump, commit "cmx X.Y.Z", tag, draft notes (no push)
 .githooks/pre-push  on a push of main, offers to release
-data/              desktop entry, metainfo, icon, cmx.thumbnailer,
+data/              desktop entry, metainfo, cmx.thumbnailer,
+                   icons/ (the macOS icons per size: regenerate them in ../cmx
+                   with scripts/generate-icons.sh, never edit the PNGs)       INT-4
+                   screenshots/reader.png (scripts/manual/screenshot.sh)    INT-41
                    config.example.ini + keybindings.example.ini (first-run)  CONF-2, INT-50
                    cmx.1 (man page, checked by spec_tests)                  INT-32
 nix/               package.nix (+ WebP/AVIF pixbuf loaders), modules        INT-2x
@@ -119,4 +123,4 @@ Run `./scripts/manual/<name>.sh` directly.
 
 ### Test comics
 
-Use `tests/fixtures/` first. For a real-world check, copy one comic from `~/Sync/Comics Library/` into a temp dir and open the copy. Never open the library's files directly: cmx writes reading progress and recent-file entries for whatever it opens.
+Use `tests/fixtures/` first. For a real-world check, copy one comic from your own library into a temp dir and open the copy. Never open library files directly: cmx writes reading progress and recent-file entries for whatever it opens.

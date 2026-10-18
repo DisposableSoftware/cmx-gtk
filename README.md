@@ -1,3 +1,5 @@
+<p align="center"><img src="data/icons/128.png" width="128" height="128" alt=""></p>
+
 <h1 align="center">cmx</h1>
 
 <p align="center">A minimal comic reader for <code>.cbz</code> files on Wayland. <i>cmx is pronounced "see-mix".</i></p>
@@ -12,6 +14,8 @@ A GTK 4 port of the macOS app [cmx](https://github.com/DisposableSoftware/cmx). 
 one page at a time, or two side by side, fit to the window, with nothing drawn over the
 image. It has no library: it opens whatever file you give it and remembers where you
 stopped reading.
+
+<p align="center"><img src="data/screenshots/reader.png" alt="cmx showing two pages of a comic side by side, with the info panel open"></p>
 
 ## Features
 
@@ -71,6 +75,21 @@ Or as a flake input:
 }
 ```
 
+The package installs a desktop entry for `.cbz` files and a thumbnailer, so file managers
+that follow the freedesktop thumbnail spec (Nautilus, Thunar, Nemo and others) show
+covers.
+
+### Without Nix
+
+You need Rust 1.92 or later and GTK 4.20 or later with its development files. WebP and
+AVIF pages also need the gdk-pixbuf loaders for those formats (`webp-pixbuf-loader`,
+and `libavif` built with its gdk-pixbuf loader).
+
+```sh
+cargo build --release
+install -Dm755 target/release/cmx ~/.local/bin/cmx
+```
+
 ## Usage
 
 ```sh
@@ -98,6 +117,9 @@ cargo test
 nix build                   # ./result/bin/cmx
 scripts/manual/headless.sh scripts/manual/paging.sh
 ```
+
+The test comics are in `tests/fixtures/`. `scripts/make-demo.sh` draws the demo comic,
+and `scripts/manual/screenshot.sh` takes the screenshot above from it.
 
 ## License
 

@@ -38,7 +38,10 @@ rustPlatform.buildRustPackage {
 
   postInstall = ''
     install -Dm644 data/io.github.DisposableSoftware.cmx.desktop -t $out/share/applications
-    install -Dm644 data/io.github.DisposableSoftware.cmx.svg -t $out/share/icons/hicolor/scalable/apps
+    for size in 16 32 64 128 256 512; do
+      install -Dm644 data/icons/$size.png \
+        $out/share/icons/hicolor/''${size}x''${size}/apps/io.github.DisposableSoftware.cmx.png
+    done
     install -Dm644 data/io.github.DisposableSoftware.cmx.metainfo.xml -t $out/share/metainfo
     install -Dm644 data/cmx.thumbnailer -t $out/share/thumbnailers
     install -Dm644 data/config.example.ini data/keybindings.example.ini -t $out/share/doc/cmx

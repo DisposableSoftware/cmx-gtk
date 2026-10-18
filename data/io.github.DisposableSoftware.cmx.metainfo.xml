@@ -21,6 +21,12 @@
       stopped reading.
     </p>
   </description>
+  <screenshots>
+    <screenshot type="default">
+      <caption>Two pages side by side, with the info panel open</caption>
+      <image>https://raw.githubusercontent.com/DisposableSoftware/cmx-gtk/main/data/screenshots/reader.png</image>
+    </screenshot>
+  </screenshots>
   <launchable type="desktop-id">io.github.DisposableSoftware.cmx.desktop</launchable>
   <url type="homepage">https://github.com/DisposableSoftware/cmx-gtk</url>
   <url type="bugtracker">https://github.com/DisposableSoftware/cmx-gtk/issues</url>
