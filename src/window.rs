@@ -10,7 +10,7 @@ pub fn open(app: &gtk::Application) {
         .build();
     let window = gtk::ApplicationWindow::builder()
         .application(app)
-        .title("Template App")
+        .title("cmx")
         .default_width(cfg.width)
         .default_height(cfg.height)
         .child(&label)

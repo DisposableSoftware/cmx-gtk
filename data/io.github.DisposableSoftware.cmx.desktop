@@ -1,10 +1,10 @@
 [Desktop Entry]
 Type=Application
-Name=Template App
+Name=cmx
 Comment=A starting point for GTK 4 apps
-Exec=tapp
-Icon=io.github.DisposableSoftware.TemplateApp
-StartupWMClass=io.github.DisposableSoftware.TemplateApp
+Exec=cmx
+Icon=io.github.DisposableSoftware.cmx
+StartupWMClass=io.github.DisposableSoftware.cmx
 Terminal=false
 StartupNotify=true
 Categories=GTK;Utility;
@@ -12,4 +12,4 @@ Actions=new-window;
 
 [Desktop Action new-window]
 Name=New Window
-Exec=tapp
+Exec=cmx

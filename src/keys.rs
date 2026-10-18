@@ -20,7 +20,7 @@ pub const BINDINGS: &[Binding] = &[
 fn resolve(overrides: &HashMap<String, Vec<String>>) -> Vec<(&'static Binding, Vec<String>)> {
     for name in overrides.keys() {
         if !BINDINGS.iter().any(|(n, _, _, _)| n == name) {
-            glib::g_warning!("tapp", "keybindings.ini: unknown keybinding '{name}'");
+            glib::g_warning!("cmx", "keybindings.ini: unknown keybinding '{name}'");
         }
     }
     BINDINGS
@@ -34,7 +34,7 @@ fn resolve(overrides: &HashMap<String, Vec<String>>) -> Vec<(&'static Binding, V
                         let ok = gtk::accelerator_parse(a.as_str()).is_some();
                         if !ok {
                             glib::g_warning!(
-                                "tapp",
+                                "cmx",
                                 "keybindings.ini: bad accelerator '{a}' for {name}"
                             );
                         }

@@ -1,6 +1,6 @@
-# Template App
+# cmx
 
-A starting point for GTK 4 apps on Wayland. Display name **Template App**, binary `tapp`, app ID `io.github.DisposableSoftware.TemplateApp`.
+A starting point for GTK 4 apps on Wayland. Display name **cmx**, binary `cmx`, app ID `io.github.DisposableSoftware.cmx`.
 
 **What the app does is defined in [`spec/`](spec/README.md).** This file covers how to work on it.
 
@@ -31,7 +31,7 @@ cargo run                      # run (inside devshell)
 cargo clippy --all-targets -- -D warnings    # must pass
 cargo fmt
 cargo test                     # unit tests + spec conformance tests
-nix build                      # package -> ./result/bin/tapp (also runs the tests)
+nix build                      # package -> ./result/bin/cmx (also runs the tests)
 nix flake check
 git config core.hooksPath .githooks   # once per clone: enables the pre-push release check
 ```
@@ -51,11 +51,11 @@ src/window.rs      the main window and its win.* actions                     WIN
 src/spec_tests.rs  spec ↔ code conformance tests
 scripts/manual/    UI checks (lib.sh helpers; headless.sh runs one in a headless sway)
 scripts/release-check.sh  recommended version bump since the last v* tag (spec delta)
-scripts/release.sh  bump, commit "Template App X.Y.Z", tag, draft notes (no push)
+scripts/release.sh  bump, commit "cmx X.Y.Z", tag, draft notes (no push)
 .githooks/pre-push  on a push of main, offers to release
 data/              desktop entry, metainfo, icon, config.example.ini +
                    keybindings.example.ini (first-run files)                 CONF-2
-                   tapp.1 (man page, checked by spec_tests)                  INT-32
+                   cmx.1 (man page, checked by spec_tests)                  INT-32
 nix/               package.nix, nixos-module.nix, hm-module.nix              INT-2x
 spec/              the specification
 ```
@@ -99,6 +99,6 @@ Run `./scripts/manual/<name>.sh` directly.
 
 - Screenshots: `hyprctl clients -j` gives the window geometry, and `grim -g` captures it. Use an `XDG_CONFIG_HOME` in a temp dir to test config variants.
 - Check `pidof hyprlock` first: if the screen is locked, grim captures the lock screen. `systemd-inhibit --what=idle` works, because hypridle respects inhibitors.
-- New windows don't take focus. Run `hyprctl dispatch 'hl.dsp.focus({ window = "class:io.github.DisposableSoftware.TemplateApp" })'` (Hyprland 0.56 uses a Lua config), then send keys with `wtype`. Always check `hyprctl activewindow` first, so keys never land in the user's other apps.
-- The Nix wrapper renames the process to `.tapp-wrapped`, so `pgrep -x tapp` never matches, and `pgrep -f` matches the test's own shell. Find and kill test windows through `hyprctl clients -j` (`.pid`).
-- The app is single-instance. If the user already has it open, a test launch only opens a window in *their* process, and killing that pid closes their windows. Check there are no `io.github.DisposableSoftware.TemplateApp` clients before testing, and don't go ahead if there are.
+- New windows don't take focus. Run `hyprctl dispatch 'hl.dsp.focus({ window = "class:io.github.DisposableSoftware.cmx" })'` (Hyprland 0.56 uses a Lua config), then send keys with `wtype`. Always check `hyprctl activewindow` first, so keys never land in the user's other apps.
+- The Nix wrapper renames the process to `.cmx-wrapped`, so `pgrep -x cmx` never matches, and `pgrep -f` matches the test's own shell. Find and kill test windows through `hyprctl clients -j` (`.pid`).
+- The app is single-instance. If the user already has it open, a test launch only opens a window in *their* process, and killing that pid closes their windows. Check there are no `io.github.DisposableSoftware.cmx` clients before testing, and don't go ahead if there are.

@@ -1,5 +1,5 @@
 {
-  description = "Template App — a starting point for GTK 4 apps";
+  description = "cmx — a starting point for GTK 4 apps";
 
   inputs.nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
@@ -37,7 +37,7 @@
         {
           tests = pkg;
           clippy = pkg.overrideAttrs (old: {
-            pname = "template-app-clippy";
+            pname = "cmx-clippy";
             nativeBuildInputs = old.nativeBuildInputs ++ [ pkgs.clippy ];
             buildPhase = "cargo clippy --all-targets --offline -- -D warnings";
             doCheck = false;
@@ -45,7 +45,7 @@
             postInstall = "";
             dontFixup = true;
           });
-          fmt = pkgs.runCommand "template-app-fmt" { nativeBuildInputs = [ pkgs.rustfmt ]; } ''
+          fmt = pkgs.runCommand "cmx-fmt" { nativeBuildInputs = [ pkgs.rustfmt ]; } ''
             cd ${./.}
             rustfmt --check --edition 2024 src/main.rs
             touch $out
@@ -55,7 +55,7 @@
 
       formatter = forAll (pkgs: pkgs.nixfmt);
 
-      overlays.default = final: _: { template-app = final.callPackage ./nix/package.nix { }; };
+      overlays.default = final: _: { cmx = final.callPackage ./nix/package.nix { }; };
 
       nixosModules.default = import ./nix/nixos-module.nix self;
       homeManagerModules.default = import ./nix/hm-module.nix self;

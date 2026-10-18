@@ -1,6 +1,6 @@
 # Product
 
-A starting point for GTK 4 apps on Wayland. Display name **Template App**, binary `tapp`, app ID `io.github.DisposableSoftware.TemplateApp`.
+A starting point for GTK 4 apps on Wayland. Display name **cmx**, binary `cmx`, app ID `io.github.DisposableSoftware.cmx`.
 
 ## Requirements
 

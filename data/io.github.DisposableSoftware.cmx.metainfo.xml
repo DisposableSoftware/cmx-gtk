@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- INT-41 -->
 <component type="desktop-application">
-  <id>io.github.DisposableSoftware.TemplateApp</id>
+  <id>io.github.DisposableSoftware.cmx</id>
   <metadata_license>CC0-1.0</metadata_license>
   <project_license>MIT</project_license>
-  <name>Template App</name>
+  <name>cmx</name>
   <summary>A starting point for GTK 4 apps</summary>
   <developer id="io.github.disposablesoftware">
     <name>DisposableSoftware</name>
@@ -14,14 +14,14 @@
       Certified, artisanal, vibe-coded slop: an AI wrote all of it while a person said
       "yeah, looks good" and pressed Enter a lot.
     </p>
-    <p>Template App opens a window that says hello.</p>
+    <p>cmx opens a window that says hello.</p>
   </description>
-  <launchable type="desktop-id">io.github.DisposableSoftware.TemplateApp.desktop</launchable>
-  <url type="homepage">https://github.com/DisposableSoftware/template-app</url>
-  <url type="bugtracker">https://github.com/DisposableSoftware/template-app/issues</url>
+  <launchable type="desktop-id">io.github.DisposableSoftware.cmx.desktop</launchable>
+  <url type="homepage">https://github.com/DisposableSoftware/cmx-gtk</url>
+  <url type="bugtracker">https://github.com/DisposableSoftware/cmx-gtk/issues</url>
   <content_rating type="oars-1.1"/>
   <provides>
-    <binary>tapp</binary>
+    <binary>cmx</binary>
   </provides>
   <releases>
     <release version="0.1.0" date="2026-10-17"/>

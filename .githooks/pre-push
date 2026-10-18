@@ -46,7 +46,7 @@ if [ "$answer" != y ]; then
   exit 1
 fi
 NO_RELEASE_CHECK=1 git push origin main "$tag" &&
-  gh release create "$tag" --title "Template App ${tag#v}" -F "$notes" ||
+  gh release create "$tag" --title "cmx ${tag#v}" -F "$notes" ||
   { echo "pre-push: release failed; notes are in $notes" >&2; exit 1; }
 rm -f "$notes"
 # The original push named the commit before the bump, which is already pushed now.

@@ -6,15 +6,15 @@ self:
   ...
 }:
 let
-  cfg = config.programs.template-app;
+  cfg = config.programs.cmx;
 in
 {
-  options.programs.template-app = {
-    enable = lib.mkEnableOption "Template App";
+  options.programs.cmx = {
+    enable = lib.mkEnableOption "cmx";
     package = lib.mkOption {
       type = lib.types.package;
       default = self.packages.${pkgs.stdenv.hostPlatform.system}.default;
-      defaultText = lib.literalExpression "template-app.packages.\${system}.default";
+      defaultText = lib.literalExpression "cmx.packages.\${system}.default";
     };
   };
 

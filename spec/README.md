@@ -1,6 +1,6 @@
-# Template App: specification
+# cmx: specification
 
-This folder is the source of truth for what Template App does. The code implements the spec. If the code and the spec disagree, the code is wrong, or the spec must be changed first.
+This folder is the source of truth for what cmx does. The code implements the spec. If the code and the spec disagree, the code is wrong, or the spec must be changed first.
 
 ## Files
 

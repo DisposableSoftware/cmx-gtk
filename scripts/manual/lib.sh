@@ -3,8 +3,8 @@
 # each guard exists.
 set -u
 
-APP=io.github.DisposableSoftware.TemplateApp
-BIN=${BIN:-./result/bin/tapp}
+APP=io.github.DisposableSoftware.cmx
+BIN=${BIN:-./result/bin/cmx}
 
 wins() { hyprctl clients -j | jq "[.[] | select(.class==\"$APP\")]"; }
 win_count() { wins | jq length; }

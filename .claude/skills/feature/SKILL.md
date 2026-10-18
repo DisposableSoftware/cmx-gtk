@@ -1,6 +1,6 @@
 ---
 name: feature
-description: Turn a feature or change request for Template App into spec changes, get the user's approval, then implement and verify it against the spec. Use when the user runs /feature, or asks for new behaviour or a change to existing behaviour.
+description: Turn a feature or change request for cmx into spec changes, get the user's approval, then implement and verify it against the spec. Use when the user runs /feature, or asks for new behaviour or a change to existing behaviour.
 argument-hint: <what the feature should do>
 disable-model-invocation: true
 ---
@@ -81,7 +81,7 @@ Never treat silence, or an unrelated message, as approval.
 3. Verify (`CLAUDE.md` step 3):
    - Run `cargo clippy --all-targets -- -D warnings`, `cargo test` (spec conformance included) and `nix build`.
    - Check each ID as its **Verified by** column says. Add unit tests where possible.
-   - For manual checks, follow "Manual testing" in `CLAUDE.md`: run them headless (`scripts/manual/headless.sh`), and send screenshots of visual changes. Only compositor behaviour needs real Hyprland; there, if the user has Template App open, skip the check and say so.
+   - For manual checks, follow "Manual testing" in `CLAUDE.md`: run them headless (`scripts/manual/headless.sh`), and send screenshots of visual changes. Only compositor behaviour needs real Hyprland; there, if the user has cmx open, skip the check and say so.
 4. Update each row: `done`, or `partial` with the gap written in, and fill in **Verified by**. Update `roadmap.md`.
 5. Commit the code with a `Spec: ID, ID` trailer. Commit the status updates with it, or as a separate `spec:` commit.
 6. Report: the IDs, how each was verified, and anything left `partial` or unverified.

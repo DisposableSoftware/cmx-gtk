@@ -7,7 +7,7 @@ mod window;
 
 use gtk::{gio, glib, prelude::*};
 
-pub const APP_ID: &str = "io.github.DisposableSoftware.TemplateApp";
+pub const APP_ID: &str = "io.github.DisposableSoftware.cmx";
 
 fn main() -> glib::ExitCode {
     if let Some(text) = cli::early(std::env::args_os()) {

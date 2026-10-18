@@ -1,12 +1,12 @@
 [package]
-name = "template-app"
+name = "cmx"
 version = "0.1.0"
 edition = "2024"
 rust-version = "1.92"
 license = "MIT"
 
 [[bin]]
-name = "tapp"
+name = "cmx"
 path = "src/main.rs"
 
 [dependencies]

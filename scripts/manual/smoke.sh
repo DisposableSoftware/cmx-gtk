@@ -1,7 +1,7 @@
 #! /usr/bin/env nix-shell
 #! nix-shell -i bash -p wtype jq grim
 # Spec: WIN-1, WIN-2, WIN-3, WIN-4, CONF-3.
-# Run from the repo root after `nix build`, with no Template App windows open. Uses a temp
+# Run from the repo root after `nix build`, with no cmx windows open. Uses a temp
 # XDG_CONFIG_HOME and XDG_STATE_HOME. Screenshots go to $OUT.
 cd "$(dirname "$0")/../.." || exit 1
 . scripts/manual/lib.sh
@@ -14,11 +14,11 @@ export XDG_STATE_HOME=$T/state
 launch "$T/cfg"
 check "one window (WIN-1)" 1 "$(win_count)"
 check "app ID (WIN-3)" "$APP" "$(active .class)"
-check "title" "Template App" "$(active .title)"
+check "title" "cmx" "$(active .title)"
 # Hyprland tiles new windows, so only the headless sway (floating) shows the default size.
 [ -n "${HEADLESS:-}" ] && check "default size in logical px" "800 600" "$(active '"\(.size[0]) \(.size[1])"')"
-check "config.ini created (CONF-3)" yes "$([ -f "$T/cfg/template-app/config.ini" ] && echo yes)"
-check "keybindings.ini created" yes "$([ -f "$T/cfg/template-app/keybindings.ini" ] && echo yes)"
+check "config.ini created (CONF-3)" yes "$([ -f "$T/cfg/cmx/config.ini" ] && echo yes)"
+check "keybindings.ini created" yes "$([ -f "$T/cfg/cmx/keybindings.ini" ] && echo yes)"
 shot "$OUT/window.png"
 
 keys -M ctrl n -m ctrl

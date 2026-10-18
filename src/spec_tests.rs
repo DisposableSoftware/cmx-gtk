@@ -143,7 +143,7 @@ fn example_config_matches_spec() {
     }
 }
 
-const MAN_PAGE: &str = include_str!("../data/tapp.1");
+const MAN_PAGE: &str = include_str!("../data/cmx.1");
 
 /// The man page's `.TP` entries tagged `.B name`, as (section, subsection, name,
 /// body), with the roff escapes the page uses turned back into text.
@@ -186,19 +186,19 @@ fn man_page_matches_spec() {
             .lines()
             .next()
             .unwrap()
-            .contains(&format!("\"tapp {}\"", env!("CARGO_PKG_VERSION"))),
-        "tapp.1: .TH must carry the Cargo.toml version"
+            .contains(&format!("\"cmx {}\"", env!("CARGO_PKG_VERSION"))),
+        "cmx.1: .TH must carry the Cargo.toml version"
     );
     let entries = man_entries();
     let bindings: Vec<_> = entries.iter().filter(|e| e.0 == "KEY BINDINGS").collect();
     let names: Vec<_> = bindings.iter().map(|e| e.2.as_str()).collect();
     let code: Vec<_> = BINDINGS.iter().map(|b| b.0).collect();
-    assert_eq!(names, code, "tapp.1 KEY BINDINGS vs keys::BINDINGS");
+    assert_eq!(names, code, "cmx.1 KEY BINDINGS vs keys::BINDINGS");
     for ((name, _, description, keys), entry) in BINDINGS.iter().zip(&bindings) {
         let body = &entry.3;
         assert!(
             body.starts_with(&format!("{description}.\n")),
-            "tapp.1 {name}: should start with “{description}.”"
+            "cmx.1 {name}: should start with “{description}.”"
         );
         let keys = if keys.is_empty() {
             "none".to_owned()
@@ -207,23 +207,23 @@ fn man_page_matches_spec() {
         };
         assert!(
             body.lines().any(|l| l == format!("Keys: {keys}")),
-            "tapp.1 {name}: lacks “Keys: {keys}”"
+            "cmx.1 {name}: lacks “Keys: {keys}”"
         );
     }
     let settings: Vec<_> = entries.iter().filter(|e| e.0 == "CONFIGURATION").collect();
     assert_eq!(
         settings.len(),
         CONFIG_KEY_COUNT,
-        "tapp.1 CONFIGURATION entries"
+        "cmx.1 CONFIGURATION entries"
     );
     for (section, key, default) in config_rows() {
         let entry = settings
             .iter()
             .find(|e| e.1 == format!("[{section}]") && e.2 == key)
-            .unwrap_or_else(|| panic!("tapp.1 lacks [{section}] {key}"));
+            .unwrap_or_else(|| panic!("cmx.1 lacks [{section}] {key}"));
         assert!(
             entry.3.lines().any(|l| l == format!("Default: {default}")),
-            "tapp.1 [{section}] {key}: lacks “Default: {default}”"
+            "cmx.1 [{section}] {key}: lacks “Default: {default}”"
         );
     }
 }

@@ -2,7 +2,7 @@ use gtk::glib;
 use std::ffi::OsString;
 
 /// What `--help` or `--version` prints (`INT-30`, `INT-31`). GLib's own help would
-/// say "Usage: io.github.DisposableSoftware.TemplateApp", because the prgname must stay the app ID.
+/// say "Usage: io.github.DisposableSoftware.cmx", because the prgname must stay the app ID.
 pub fn early(args: impl IntoIterator<Item = OsString>) -> Option<String> {
     for arg in args.into_iter().skip(1) {
         match arg.to_str() {
@@ -16,19 +16,19 @@ pub fn early(args: impl IntoIterator<Item = OsString>) -> Option<String> {
 }
 
 fn version() -> String {
-    format!("tapp {}\n", env!("CARGO_PKG_VERSION"))
+    format!("cmx {}\n", env!("CARGO_PKG_VERSION"))
 }
 
 fn help() -> String {
-    let dir = glib::user_config_dir().join("template-app");
+    let dir = glib::user_config_dir().join("cmx");
     let config = dir.join("config.ini").display().to_string();
     let keys = dir.join("keybindings.ini").display().to_string();
     let w = config.chars().count().max(keys.chars().count());
     format!(
         "\
-Usage: tapp [OPTION…]
+Usage: cmx [OPTION…]
 
-Opens a Template App window. If Template App is already running, the window opens in it.
+Opens a cmx window. If cmx is already running, the window opens in it.
 
 Options:
   -h, --help     Show this help and exit
@@ -38,7 +38,7 @@ Files:
   {config:<w$}  settings
   {keys:<w$}  keybindings
 
-See tapp(1) for the keybindings and every setting.
+See cmx(1) for the keybindings and every setting.
 ",
     )
 }
@@ -49,7 +49,7 @@ mod tests {
 
     fn run(args: &[&str]) -> Option<String> {
         early(
-            std::iter::once("tapp")
+            std::iter::once("cmx")
                 .chain(args.iter().copied())
                 .map(OsString::from),
         )
@@ -58,20 +58,20 @@ mod tests {
     #[test]
     fn help_and_version() {
         let help = run(&["--help"]).unwrap();
-        assert!(help.starts_with("Usage: tapp [OPTION…]\n"));
+        assert!(help.starts_with("Usage: cmx [OPTION…]\n"));
         for part in [
             "--help",
             "--version",
             "config.ini",
             "keybindings.ini",
-            "tapp(1)",
+            "cmx(1)",
         ] {
             assert!(help.contains(part), "help lacks {part}");
         }
         assert_eq!(run(&["x", "-h"]), Some(help));
         assert_eq!(
             run(&["-V"]).unwrap(),
-            format!("tapp {}\n", env!("CARGO_PKG_VERSION"))
+            format!("cmx {}\n", env!("CARGO_PKG_VERSION"))
         );
         assert_eq!(run(&["--version"]), run(&["-V"]));
         assert_eq!(run(&[]), None);

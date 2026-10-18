@@ -7,9 +7,9 @@ use std::sync::OnceLock;
 const CONFIG_EXAMPLE: &str = include_str!("../data/config.example.ini");
 const KEYBINDINGS_EXAMPLE: &str = include_str!("../data/keybindings.example.ini");
 
-/// `$XDG_CONFIG_HOME/template-app`.
+/// `$XDG_CONFIG_HOME/cmx`.
 pub fn dir() -> PathBuf {
-    glib::user_config_dir().join("template-app")
+    glib::user_config_dir().join("cmx")
 }
 
 pub struct Config {
@@ -93,7 +93,7 @@ fn read(path: &Path) -> Option<glib::KeyFile> {
         Ok(_) => Some(kf),
         Err(e) => {
             if !e.matches(glib::FileError::Noent) {
-                glib::g_warning!("tapp", "{}: {}", path.display(), e.message());
+                glib::g_warning!("cmx", "{}: {}", path.display(), e.message());
             }
             None
         }
@@ -104,7 +104,7 @@ fn read(path: &Path) -> Option<glib::KeyFile> {
 /// without pinning them.
 fn commented(example: &str) -> String {
     let mut out = String::from(
-        "# Created by Template App with every default commented out. To change one,\n\
+        "# Created by cmx with every default commented out. To change one,\n\
          # remove the leading '# ' and edit the value.\n",
     );
     for line in example.lines() {
@@ -136,7 +136,7 @@ fn create_missing(dir: &Path) {
                 .write_all(commented(example).as_bytes())
         });
         if let Err(e) = written {
-            glib::g_warning!("tapp", "could not create {}: {e}", path.display());
+            glib::g_warning!("cmx", "could not create {}: {e}", path.display());
         }
     }
 }
@@ -147,7 +147,7 @@ mod tests {
 
     fn temp(name: &str) -> PathBuf {
         let dir =
-            std::env::temp_dir().join(format!("tapp-test-config-{name}-{}", std::process::id()));
+            std::env::temp_dir().join(format!("cmx-test-config-{name}-{}", std::process::id()));
         let _ = std::fs::remove_dir_all(&dir);
         dir
     }
@@ -177,7 +177,7 @@ mod tests {
 
     #[test]
     fn creates_missing_files_with_the_defaults_commented_out() {
-        let dir = temp("create").join("template-app");
+        let dir = temp("create").join("cmx");
         let cfg = Config::load_from(&dir);
         assert_eq!(cfg.width, Config::default().width);
         assert!(cfg.keybindings.is_empty());
@@ -225,7 +225,7 @@ mod tests {
     fn starts_with_defaults_when_the_files_cant_be_created() {
         let blocker = temp("blocked");
         std::fs::write(&blocker, "a file, not a folder").unwrap();
-        let cfg = Config::load_from(&blocker.join("template-app"));
+        let cfg = Config::load_from(&blocker.join("cmx"));
         assert_eq!(cfg.width, Config::default().width);
         std::fs::remove_file(&blocker).unwrap();
     }

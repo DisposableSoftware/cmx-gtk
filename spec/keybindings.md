@@ -5,7 +5,7 @@
 | ID | Requirement | Status | Verified by |
 |----|-------------|--------|-------------|
 | `KEY-1` | Every user-facing action has a binding name, and its defaults are listed in the table below. | done | `spec_tests::keybindings_match_spec` |
-| `KEY-2` | Users override a binding in the `[keybindings]` group of `$XDG_CONFIG_HOME/template-app/keybindings.ini`, writing `name = accel;accel`. An empty value unbinds it. A binding that isn't listed keeps its defaults. | done | `config::tests::reads_settings_and_keybindings_from_their_files`, `keys::tests::accelerators` |
+| `KEY-2` | Users override a binding in the `[keybindings]` group of `$XDG_CONFIG_HOME/cmx/keybindings.ini`, writing `name = accel;accel`. An empty value unbinds it. A binding that isn't listed keeps its defaults. | done | `config::tests::reads_settings_and_keybindings_from_their_files`, `keys::tests::accelerators` |
 | `KEY-3` | Unknown binding names and accelerators that can't be parsed are warned about on stderr and skipped. They never crash the app. | done | `keys::tests::accelerators` (a bad accelerator is dropped) |
 | `KEY-4` | Accelerator syntax is GTK's (`gtk_accelerator_parse`): `<Ctrl>`, `<Shift>`, `<Alt>`, `<Super>` plus a GDK key name. | done | `keys::tests::accelerators` |
 
