@@ -93,7 +93,7 @@ spec/              the specification
 
 ## Releasing
 
-`scripts/release-check.sh` recommends a bump from the commits since the last `v*` tag: major for `BREAKING` or a removed config key or binding, minor when a requirement became `done` or `partial`, patch for other package changes. `scripts/release.sh LEVEL NOTES` bumps `Cargo.toml`, `Cargo.lock`, the metainfo and the man page, runs the tests, commits and tags, and drafts notes; then `git push origin main vX.Y.Z` and `gh release create vX.Y.Z -F NOTES`. With the hook enabled, pushing main offers all of this (`NO_RELEASE_CHECK=1` skips it). Ask before pushing.
+`scripts/release-check.sh` recommends a bump from the commits since the last `v*` tag: major for `BREAKING` or a removed config key or binding, minor when a requirement became `done` or `partial`, patch for other package changes. `scripts/release.sh LEVEL NOTES` bumps `Cargo.toml`, `Cargo.lock`, the metainfo and the man page, runs the tests, commits and tags, and drafts notes; then `git push origin main vX.Y.Z` and `gh release create vX.Y.Z -F NOTES`. With the hook enabled, pushing main offers all of this (`NO_RELEASE_CHECK=1` skips it). `/release` (`.claude/skills/release/`) runs all of this: it pushes main, releases a patch or minor bump without asking, and asks first for a major one. Otherwise ask before pushing.
 
 ## Manual testing
 
