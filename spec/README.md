@@ -7,6 +7,7 @@ This folder is the source of truth for what cmx does. The code implements the sp
 | File | Prefix | Covers |
 |------|--------|--------|
 | [product.md](product.md) | `PROD` | Goals, non-goals, platform and stack constraints |
+| [reader.md](reader.md) | `READ` | Archives, pages, metadata, navigation, dual-page layout, progress |
 | [window.md](window.md) | `WIN` | Windows and what they show |
 | [keybindings.md](keybindings.md) | `KEY` | Default bindings, user overrides |
 | [appearance.md](appearance.md) | `LOOK` | Styling and display scale |
