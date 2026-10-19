@@ -1,0 +1,91 @@
+window.cmx {
+  background-color: @bg;
+  color: @text;
+}
+
+window.cmx scrolledwindow,
+window.cmx viewport {
+  background: transparent;
+  box-shadow: none;
+  color: @text;
+}
+
+/* The one hard-coded colour (LOOK-3): pages are never tinted (WIN-6). */
+window.cmx .page-area {
+  background-color: black;
+}
+
+window.cmx .placeholder-title {
+  font-size: 1.5em;
+  color: @text;
+}
+
+window.cmx .placeholder-hint {
+  color: @overlay1;
+}
+
+window.cmx .page-area spinner {
+  color: @subtext0;
+}
+
+window.cmx .info-panel {
+  background-color: alpha(@mantle, 0.4);
+}
+
+window.cmx .info-panel label {
+  color: @text;
+}
+
+window.cmx .info-panel label.dim-label {
+  color: @subtext0;
+  opacity: 1;
+}
+
+window.cmx label selection {
+  background-color: alpha(@accent, 0.35);
+  color: @text;
+}
+
+window.cmx .info-panel scrollbar,
+window.cmx .info-panel scrollbar trough {
+  background: none;
+  border: none;
+  box-shadow: none;
+  padding: 0;
+  min-width: 6px;
+}
+
+window.cmx .info-panel scrollbar slider {
+  min-width: 4px;
+  margin: 0 1px;
+  border: none;
+  border-radius: 2px;
+  background-color: alpha(@overlay1, 0.5);
+}
+
+window.cmx .info-panel scrollbar.hovering slider,
+window.cmx .info-panel scrollbar.dragging slider {
+  background-color: @overlay1;
+}
+
+window.cmx button:focus-visible {
+  outline-color: alpha(@accent, 0.7);
+}
+
+window.cmx.about {
+  background-color: @mantle;
+  color: @text;
+}
+
+window.cmx.about label {
+  color: @text;
+}
+
+window.cmx.about label link,
+window.cmx.about label link:visited {
+  color: @accent;
+}
+
+window.cmx.about label link:hover {
+  color: shade(@accent, 1.1);
+}

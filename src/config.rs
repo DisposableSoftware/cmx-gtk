@@ -12,7 +12,15 @@ pub fn dir() -> PathBuf {
     glib::user_config_dir().join("cmx")
 }
 
+const FLAVORS: &[&str] = &["latte", "frappe", "macchiato", "mocha", "gtk"];
+
 pub struct Config {
+    /// `latte`, `frappe`, `macchiato`, `mocha` or `gtk` (`CONF-6`).
+    pub flavor: String,
+    /// One of `theme::ACCENTS` (`CONF-7`).
+    pub accent: String,
+    /// Window background alpha (`CONF-8`).
+    pub opacity: f64,
     /// Default window size in logical px.
     pub width: i32,
     pub height: i32,
@@ -23,6 +31,9 @@ pub struct Config {
 impl Default for Config {
     fn default() -> Self {
         Self {
+            flavor: "mocha".into(),
+            accent: "mauve".into(),
+            opacity: 0.85,
             width: 800,
             height: 1000,
             keybindings: HashMap::new(),
@@ -56,6 +67,23 @@ impl Config {
         }
         if let Ok(v) = kf.integer("window", "height") {
             cfg.height = v.clamp(200, 8192);
+        }
+        if let Ok(v) = kf.string("appearance", "flavor") {
+            if FLAVORS.contains(&v.as_str()) {
+                cfg.flavor = v.to_string();
+            } else {
+                glib::g_warning!("cmx", "config.ini: unknown flavor “{v}”, using mocha");
+            }
+        }
+        if let Ok(v) = kf.string("appearance", "accent") {
+            if crate::theme::ACCENTS.contains(&v.as_str()) {
+                cfg.accent = v.to_string();
+            } else {
+                glib::g_warning!("cmx", "config.ini: unknown accent “{v}”, using mauve");
+            }
+        }
+        if let Ok(v) = kf.double("appearance", "opacity") {
+            cfg.opacity = v.clamp(0.0, 1.0);
         }
         cfg
     }
@@ -163,6 +191,28 @@ mod tests {
         assert_eq!(cfg.keybindings["quit"], ["<Ctrl>q", "<Ctrl><Shift>q"]);
         assert!(cfg.keybindings["new-window"].is_empty());
         std::fs::remove_dir_all(&dir).unwrap();
+    }
+
+    #[test]
+    fn reads_appearance_and_falls_back_on_bad_values() {
+        let read = |data: &str| {
+            let kf = glib::KeyFile::new();
+            kf.load_from_data(data, glib::KeyFileFlags::NONE).unwrap();
+            Config::from_keyfile(&kf)
+        };
+        let cfg = read("[appearance]\nflavor=latte\naccent=teal\nopacity=0.5\n");
+        assert_eq!(
+            (cfg.flavor.as_str(), cfg.accent.as_str(), cfg.opacity),
+            ("latte", "teal", 0.5)
+        );
+        let cfg = read("[appearance]\nflavor=gtk\nopacity=7\n");
+        assert_eq!((cfg.flavor.as_str(), cfg.opacity), ("gtk", 1.0));
+        assert_eq!(read("[appearance]\nopacity=-1\n").opacity, 0.0);
+        let cfg = read("[appearance]\nflavor=nord\naccent=chartreuse\nopacity=lots\n");
+        let default = Config::default();
+        assert_eq!(cfg.flavor, default.flavor);
+        assert_eq!(cfg.accent, default.accent);
+        assert_eq!(cfg.opacity, default.opacity);
     }
 
     #[test]

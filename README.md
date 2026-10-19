@@ -28,6 +28,7 @@ stopped reading.
   and every field is in the info panel (`Ctrl+I`).
 - Dual-page layout (`d`). Landscape pages are never paired.
 - JPEG, PNG, GIF, WebP, AVIF, BMP and TIFF pages.
+- Dressed in Catppuccin: pick a flavor (latte, frappe, macchiato, mocha, or your GTK theme), an accent and a window opacity under `[appearance]`. The page area stays black.
 - File manager thumbnails show the cover (`cmx --thumbnail`).
 
 CBR (RAR) archives are not supported. A RAR renamed to `.cbz` is detected, and cmx tells
@@ -104,6 +105,8 @@ Settings live in `~/.config/cmx/config.ini` and keybindings in
 commented out; remove the `# ` from a line to change it. Reading progress is kept in
 `~/.local/state/cmx/state.ini`.
 
+Under `[appearance]`: `flavor` (`latte`, `frappe`, `macchiato`, `mocha` or `gtk`; default `mocha`), `accent` (one of the 14 Catppuccin accents; default `mauve`) and `opacity` (0.0 to 1.0; default `0.85`). Extra CSS goes in `~/.config/cmx/style.css`.
+
 ## Development
 
 What the app does is written down in [`spec/`](spec/README.md); see
@@ -120,6 +123,10 @@ scripts/manual/headless.sh scripts/manual/paging.sh
 
 The test comics are in `tests/fixtures/`. `scripts/make-demo.sh` draws the demo comic,
 and `scripts/manual/screenshot.sh` takes the screenshot above from it.
+
+## Credits
+
+The colours are the [Catppuccin](https://catppuccin.com) palette, made by the Catppuccin community ([github.com/catppuccin/catppuccin](https://github.com/catppuccin/catppuccin)). We only borrowed it.
 
 ## License
 

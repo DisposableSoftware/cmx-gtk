@@ -181,6 +181,41 @@ Default: \fB800\fR
 The starting height of new windows in logical pixels, 200 to 8192.
 .br
 Default: \fB1000\fR
+.SS [appearance]
+.TP
+.B flavor
+The colour scheme, a Catppuccin flavor:
+.BR latte ,
+.BR frappe ,
+.B macchiato
+or
+.BR mocha ,
+or
+.B gtk
+to follow the GTK theme: its window background and text colours, the shades between
+them mixed in Catppuccin's proportions, and its accent colour.
+An unknown flavor is warned about and falls back to mocha.
+.br
+Default: \fBmocha\fR
+.TP
+.B accent
+The Catppuccin accent colour, used for selection and focus:
+rosewater, flamingo, pink, mauve, red, maroon, peach, yellow, green, teal, sky,
+sapphire, blue or lavender.
+An unknown accent is warned about and falls back to mauve.
+Ignored when
+.B flavor
+is
+.BR gtk .
+.br
+Default: \fBmauve\fR
+.TP
+.B opacity
+The opacity of the window background, from 0.0 to 1.0, so the compositor's
+wallpaper or blur shows through.
+The page area stays black.
+.br
+Default: \fB0.85\fR
 .SH FILES
 .TP
 .I $XDG_CONFIG_HOME/cmx/config.ini
@@ -188,6 +223,11 @@ Settings.
 .TP
 .I $XDG_CONFIG_HOME/cmx/keybindings.ini
 Key bindings.
+.TP
+.I $XDG_CONFIG_HOME/cmx/style.css
+Optional CSS loaded after cmx's own, which can use the palette names such as
+\fB@base\fR, \fB@mauve\fR and \fB@accent\fR. Every rule should start with
+\fBwindow.cmx\fR.
 .TP
 .I $XDG_STATE_HOME/cmx/state.ini
 The page each comic was left at, and the comic read last.

@@ -43,9 +43,10 @@ The flake only sees git-tracked files. Run `git add` on new files before `nix bu
 Keep this table current: one line per module, with the spec IDs it implements.
 
 ```
-src/main.rs        GtkApplication, open/activate, app actions, About, CSS     WIN-1, WIN-2, WIN-3, WIN-15
+src/main.rs        GtkApplication, open/activate, app actions, About         WIN-1, WIN-2, WIN-3, WIN-15
 src/cli.rs         --help, --version, --thumbnail args, before GTK starts    INT-30, INT-31, INT-51
 src/config.rs      config.ini + keybindings.ini, first-run files, OnceLock   CONF KEY-2
+src/theme.rs       Catppuccin palette + CSS provider (data/themes, style.css) LOOK-2..11
 src/keys.rs        keys::BINDINGS, overrides, accelerators                   KEY
 src/archive.rs     magic-byte sniffing, the ZIP reader, user-facing errors   READ-1, READ-3..5, PROD-7
 src/pages.rs       page list: junk filter, natural sort                      READ-2
@@ -72,6 +73,7 @@ data/              desktop entry, metainfo, cmx.thumbnailer,
                    icons/ (the macOS icons per size: regenerate them in ../cmx
                    with scripts/generate-icons.sh, never edit the PNGs)       INT-4
                    screenshots/reader.png (scripts/manual/screenshot.sh)    INT-41
+                   style.css (app rules), themes/*.css (palettes, verbatim)    LOOK-8
                    config.example.ini + keybindings.example.ini (first-run)  CONF-2, INT-50
                    cmx.1 (man page, checked by spec_tests)                  INT-32
 nix/               package.nix (+ WebP/AVIF pixbuf loaders), modules        INT-2x

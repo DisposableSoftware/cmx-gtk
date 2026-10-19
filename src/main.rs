@@ -14,20 +14,14 @@ mod reader;
 mod session;
 #[cfg(test)]
 mod spec_tests;
+mod theme;
 mod thumbnail;
 mod window;
 
-use gtk::{gdk, gio, glib, prelude::*};
+use gtk::{gio, glib, prelude::*};
 use std::cell::Cell;
 
 pub const APP_ID: &str = "io.github.DisposableSoftware.cmx";
-
-const CSS: &str = "
-window.cmx .page-area { background-color: black; }
-window.cmx .placeholder-title { font-size: 1.5em; color: #c0c0c0; }
-window.cmx .placeholder-hint { color: #808080; }
-window.cmx .page-area spinner { color: #c0c0c0; }
-";
 
 fn main() -> glib::ExitCode {
     match cli::early(std::env::args_os()) {
@@ -71,15 +65,7 @@ fn main() -> glib::ExitCode {
             .build();
         app.add_action_entries([quit, about]);
         keys::apply(app);
-        let provider = gtk::CssProvider::new();
-        provider.load_from_string(CSS);
-        if let Some(display) = gdk::Display::default() {
-            gtk::style_context_add_provider_for_display(
-                &display,
-                &provider,
-                gtk::STYLE_PROVIDER_PRIORITY_APPLICATION,
-            );
-        }
+        theme::load(config::get());
     });
 
     // Only the first window of the process reopens the last comic (`READ-41`).
@@ -116,6 +102,8 @@ fn about(app: &gtk::Application) {
         .website("https://github.com/DisposableSoftware/cmx-gtk")
         .modal(true)
         .build();
+    dialog.add_css_class("cmx");
+    dialog.add_css_class("about");
     dialog.add_credit_section(
         "Third-party crates",
         &[
