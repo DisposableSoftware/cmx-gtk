@@ -9,6 +9,9 @@
 | `CONF-3` | When the app starts and `config.ini` or `keybindings.ini` doesn't exist, it creates the missing file (and the folder) from the example (`CONF-2`), with every line commented out, so the file changes nothing until a line is uncommented. A file that exists is never written to, whether it is a regular file, a symlink (as with dotfiles or home-manager) or a dangling symlink. If a file can't be created, that is warned about and the app starts normally. | done | `config::tests` |
 | `CONF-4` | `[window] width` and `height`: the starting size of new windows in logical px, clamped to 300–8192 and 200–8192. When a comic opens, the window then fits itself to the page (`WIN-11`). | done | `config::tests`, `spec_tests` |
 | `CONF-5` | `[view] greeting`: the text the window shows. | dropped | it was the template's greeting; cmx shows the placeholder (`WIN-5`) instead |
+| `CONF-6` | `[appearance] flavor`: `latte`, `frappe`, `macchiato`, `mocha`, or `gtk` to use the GTK theme's colours (`LOOK-10`). An unknown value is warned about and falls back to `mocha`. | planned | `config::tests`, `spec_tests` |
+| `CONF-7` | `[appearance] accent`: one of `rosewater`, `flamingo`, `pink`, `mauve`, `red`, `maroon`, `peach`, `yellow`, `green`, `teal`, `sky`, `sapphire`, `blue`, `lavender`. An unknown value is warned about and falls back to `mauve`. Ignored with `flavor = gtk`. | planned | `config::tests`, `spec_tests` |
+| `CONF-8` | `[appearance] opacity`: the alpha of the window background (`LOOK-3`), 0.0 to 1.0, clamped. | planned | `config::tests`, `spec_tests` |
 
 ## Defaults
 
@@ -17,6 +20,9 @@
 |---------|-----|---------|
 | `window` | `width` | `800` |
 | `window` | `height` | `1000` |
+| `appearance` | `flavor` | `mocha` |
+| `appearance` | `accent` | `mauve` |
+| `appearance` | `opacity` | `0.85` |
 <!-- spec:config:end -->
 
 The defaults for `[keybindings]` are in [keybindings.md](keybindings.md).
