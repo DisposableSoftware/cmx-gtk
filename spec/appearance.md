@@ -1,5 +1,7 @@
 # Appearance
 
+The shared look is described in the DisposableSoftware [style guide](https://github.com/DisposableSoftware/style-guide) (see [product.md](product.md#style-guide)). The rows below win over it. The colours are Catppuccin, by the Catppuccin community ([catppuccin.com](https://catppuccin.com)).
+
 ## Requirements
 
 | ID | Requirement | Status | Verified by |
@@ -15,6 +17,8 @@
 | `LOOK-9` | The CSS is one provider at user priority, built from the palette, `@accent`, `@bg`, `data/style.css` and last the user's `$XDG_CONFIG_HOME/cmx/style.css`, so user CSS can use the palette names (`@base`, `@mauve`, …, `@accent`, `@bg`) and override the app's rules. A missing user file is not an error. | done | `theme::tests::css_is_built_in_order` |
 | `LOOK-10` | With `flavor = gtk` (`CONF-6`), cmx uses the GTK theme's colours instead of a Catppuccin palette: `base` is the theme's window background, `text` its window text colour and `accent` its accent colour, whatever `accent` says. The other shades are mixed from `base` and `text` in Catppuccin's proportions, and `mantle` and `crust` are slightly darker than `base`. The 14 accent names keep their mocha values. The window background is still `base` at the opacity (`LOOK-3`). The theme is read when cmx starts. | partial | `theme::tests` (every colour name is defined for every flavor, and the theme accent is used). Gap: no screenshot with a GTK theme yet |
 | `LOOK-11` | Highlighted text stays readable: for every Catppuccin flavor and accent, `text` has a contrast ratio of at least 3:1 against the selection colour, the accent at 30% over `base`. | done | `theme::tests::selected_text_contrasts_with_the_selection` |
+| `LOOK-12` | Decision open, not ready to build. In the empty window (`WIN-5`) on latte, the title (`text`) and hint (`overlay1`) have low contrast on the black page area. The option is to draw the empty window on `bg` instead of black, so the `LOOK-4` colours read on every flavor. That changes `WIN-5` and `LOOK-3`, and the black page area is deliberate (`WIN-6`), so the user decides between this and keeping black with the gap recorded. Style guide: known-gaps.md ("Latte on cmx-gtk's black page area"), palette.md. | planned | manual (headless latte screenshot of the empty window, contrast checked) |
+| `LOOK-13` | Decision open, not ready to build. The error dialog (`WIN-10`) carries the `cmx` class and uses `mantle` and `text`, like the About dialog (`LOOK-7`), instead of following the GTK theme. This needs a small modal window in place of `gtk::AlertDialog`, which takes no CSS class. The open file dialog (`WIN-8`) is a `gtk::FileDialog` and stays on the GTK theme as a deliberate exception. Style guide: layout.md ("Overlays and dialogs"), components.md, known-gaps.md ("Dialogs outside the window class"). | planned | manual (headless screenshot of the RAR error, mocha and latte) |
 
 ## Implementation notes
 

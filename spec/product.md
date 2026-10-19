@@ -4,6 +4,10 @@ cmx (pronounced "see-mix") is a minimal comic reader for `.cbz` files on Wayland
 
 It shows one page at a time, or two side by side, fit to the window, with nothing drawn over the image. It has no library: it opens whatever file it is given and remembers where you stopped reading.
 
+## Style guide
+
+The shared look of the DisposableSoftware apps is described in the [style guide](https://github.com/DisposableSoftware/style-guide): palette, CSS values, layout, keys, config and copy. It describes the family look and is not a requirement here. Where it and this spec disagree, this spec wins, and the guide records the difference as a known gap. The palette is [Catppuccin](https://catppuccin.com), made by the Catppuccin community. cmx did not create it, and credits it (see [appearance.md](appearance.md)).
+
 ## Requirements
 
 | ID | Requirement | Status |

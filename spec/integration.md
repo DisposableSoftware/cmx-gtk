@@ -28,6 +28,12 @@
 | `INT-32` | The man page `cmx(1)` documents the synopsis and options (`--thumbnail` included), every binding in the default bindings table with its description and default keys, how to override one (`KEY-2`), where the config files live and how they are created (`CONF-3`), every key in the config defaults table with its allowed values and default, and files and environment variables. It renders with `man` without warnings. | done | `spec_tests::man_page_matches_spec`, manual (`man --warnings=all -l data/cmx.1`) |
 | `INT-41` | AppStream metainfo, `share/metainfo/io.github.DisposableSoftware.cmx.metainfo.xml`: ID, name, summary, a description that keeps the README's warning, the launchable desktop entry, licences, developer, homepage and the current release. It passes `appstreamcli validate --no-net`. | done | manual (`appstreamcli validate --no-net`); the screenshot is `data/screenshots/reader.png`, taken by `scripts/manual/screenshot.sh` |
 
+## README
+
+| ID | Requirement | Status | Verified by |
+|----|-------------|--------|-------------|
+| `INT-52` | The README follows the style guide's README shape (readme.md): the tagline names the Catppuccin colours, the key table sits under a "Keyboard" heading, the settings have their own "Configuration" section, a second screenshot shows Latte with the blue accent, and a "Credits" section links [catppuccin.com](https://catppuccin.com) and [github.com/catppuccin/catppuccin](https://github.com/catppuccin/catppuccin) and says the palette is the Catppuccin community's. The warning callout and the Nix-first install stay. | planned | manual (read the README; the Latte screenshot is taken by `scripts/manual/screenshot.sh` from the demo comic) |
+
 ## Thumbnails
 
 | ID | Requirement | Status | Verified by |
